@@ -1,2 +1,6 @@
 .vscode
-*.syntex*
+*.synctex*
+*.bbl
+*.fdb_latexmk
+*.fls
+*.log
