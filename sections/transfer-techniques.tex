@@ -1,0 +1,24 @@
+\usepackage{listings}
+\section{Sim-to-Real Transfer Techniques}
+
+Researchers have developed a variety of techniques to enable policies learned in simulation to work in the real world. Figure 1 illustrates three common strategies: system identification (making the sim more like reality), domain adaptation (making the data or model translate between sim and real), and domain randomization (exposing the policy to diverse simulated experiences so it generalizes to real). We will discuss each in detail, including how they are implemented and examples of their use in RL. It is important to note that these techniques are often complementary – for example, one might first apply system identification to get a reasonably accurate simulator, then use domain randomization during training, and perhaps a form of adaptation at deployment. The optimal approach can depend on the task and what aspects of the sim-to-real gap are most significant (e.g. visual differences vs. physics differences).
+
+\subsection{Domain Randomization}
+Concept: Domain randomization (DR) is a strategy where, instead of trying to make the simulator perfectly realistic, we intentionally randomize various aspects of the simulation during training. The idea, introduced by Sadeghi and Levine (2016) and Tobin et al. (2017), is that by exposing the RL agent to a wide range of environment variations, the learned policy will focus on task-relevant features and become robust to changes. If the randomization is sufficiently broad, the real world – with its particular configuration – will appear to the agent as just another variation it has seen in training. In effect, domain randomization enlarges the training domain to encompass the real domain.
+
+What to Randomize: Practically any parameter of the simulation that could differ in reality is a candidate for randomization. Common randomizations include: object colors and textures, lighting conditions, background imagery, positions and shapes of objects, sensor noise, and physics properties like masses, friction coefficients, and joint damping. For example, in a simulated robotic vision
+task, one might randomize the colors and textures of walls and floors each episode, add random noise or blur to the camera images, and randomize lighting direction and intensity. In a dynamics-centric task like robot locomotion, one might randomize gravity slightly, vary the robot’s motor torque scalars, or add random forces (perturbations) during the episode to simulate bumps or wind. The randomization
+ranges should be chosen to cover the plausible real-world variations – often initially set wide when unsure. Notably, domain randomization does not attempt to perfectly mimic reality; it instead says “throw everything at the agent, and if it can handle all of it, it will handle reality.”
+
+Effect on Learning: During training, each episode or training iteration uses a differently randomized environment. The RL algorithm, say Proximal Policy Optimization (PPO), optimizes the policy to maximize expected reward over this distribution of environments (rather than one fixed environment). Mathematically, if $\xi$ denotes a vector of simulation parameters to randomize (both visual and physical), domain randomization seeks a policy $\pi_\theta$ that performs well under the expectation over $\xi \sim \Xi$, where $\Xi$ is the space of randomization. In other words, the objective
+becomes:
+$$\max_\theta \; \mathbb{E}{\xi \sim \Xi}\left[\, \mathbb{E}[R\tau]\right],(\xi)$$
+where $R(\tau)$ is the cumulative reward of a trajectory $\tau$ sampled from the simulator with randomization $\xi$. By optimizing this, the agent learns to handle all the randomized conditions, rather than overfitting to one setting.
+
+In pseudocode, a domain randomization training loop might look like this:
+
+\begin{verbatim*}
+    initialize policy parameters
+    for iteration = 1 to N:
+        sample random parameters
+\end{verbatim}
