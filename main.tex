@@ -23,6 +23,10 @@
 
 \usepackage{blindtext} % Package to generate dummy text throughout this template 
 
+\usepackage{graphicx}
+
+\usepackage{float}
+
 \usepackage[sc]{mathpazo} % Use the Palatino font
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \linespread{1.05} % Line spacing - Palatino needs more space between lines
@@ -81,6 +85,9 @@
     backgroundcolor=\color{gray!5},
 }
 
+\newcommand{\simtoreal}{sim-to-real }
+\newcommand{\etal}{\textit{et al.}}
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -98,7 +105,7 @@
 \date{\today} % Leave empty to omit a date
 \renewcommand{\maketitlehookd}{%
 \begin{abstract}
-\noindent Reinforcement Learning is a modern and powerful approach to machine learning. It has achived remarkable success in simulated environments. But no matter how powerful your algorithm is, it is only as good as the deployment in the real world. Due to the complexity of the real world, the Sim-2-Real transfer is a major challenge in the field of Reinforcement Learning. In this paper, we will discuss the challenges of the Sim-2-Real transfer and how to overcome them. We will discuss different approaches to the Sim-2-Real transfer and how they can be used to improve the performance of Reinforcement Learning.
+\noindent Reinforcement Learning (RL) has achieved remarkable success in simulated environments. However, independent of algorithmic performance, deploying RL policies in the real world remains challenging due to discrepancies between simulation and reality. This paper provides a structured overview of key challenges in sim-to-real transfer, categorized by typical mismatches in observations, actions, transitions, and rewards. We systematically review and compare techniques such as domain randomization, system identification, grounded action transformation, and learned reward functions. For each category, we highlight representative approaches, discuss their strengths and limitations, and reference empirical case studies that demonstrate their practical impact.
 \end{abstract}
 }
 
@@ -113,8 +120,11 @@
 \input{sections/background}
 \input{sections/transfer-techniques/observation}
 \input{sections/transfer-techniques/action}
-\input{sections/case-studies}
-\input{sections/challenges}
+\input{sections/transfer-techniques/transition}
+\input{sections/transfer-techniques/reward}
+\input{sections/discussion}
+% \input{sections/case-studies}
+% \input{sections/challenges}
 \input{sections/conclusion}
 %----------------------------------------------------------------------------------------
 
