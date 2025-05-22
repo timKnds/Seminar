@@ -60,7 +60,26 @@
 
 \usepackage{hyperref} % For hyperlinks in the PDF
 
-\usepackage{lisitings}
+\usepackage{listings}
+\usepackage{xcolor} % Für Farben (optional)
+\lstdefinelanguage{pseudocode}{
+    keywords={for, to, from, set, with, one, and, collect, update, using, end},
+    keywordstyle=\color{blue}\bfseries,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    sensitive=false
+}
+
+\lstset{
+    language=pseudocode,
+    basicstyle=\scriptsize\ttfamily,  % kleiner Code
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    mathescape=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+}
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -92,7 +111,11 @@
 %----------------------------------------------------------------------------------------
 \input{sections/introduction}
 \input{sections/background}
-\input{sections/transfer-techniques}
+\input{sections/transfer-techniques/observation}
+\input{sections/transfer-techniques/action}
+\input{sections/case-studies}
+\input{sections/challenges}
+\input{sections/conclusion}
 %----------------------------------------------------------------------------------------
 
 \bibliographystyle{abbrv} % "abbrv" reference style
