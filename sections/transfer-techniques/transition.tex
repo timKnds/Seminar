@@ -1,12 +1,13 @@
 \section{Transition-Level Transfer}
 Transition-level \simtoreal deals with dynamics modeling: how the state evolves under actions. The simulator’s physics (mass, friction, contacts) rarely match reality precisely, especially in contact-rich or deformable tasks. This is often the hardest gap to bridge, since even small physics errors can accumulate.
 
-A common strategy is \emph{dynamics randomization}: sampling simulation parameters (mass, inertia, friction coefficients, gravity, etc.) from a broad distribution during training. This approach generates a policy robust to a variety of dynamics. It was famously used by OpenAI in their bipedal robot and Dactyl hand experiments, randomizing parameters like joint friction, motor strength, and even gravity to ensure the policy did not rely on any precise setting\cite{Akkaya2019}. Tan et al. similarly randomized terrain friction and actuator gains for quadruped locomotion, leading to successful transfer of galloping and trotting gaits\cite{Tan2018}. Figure~\ref{fig:quadruped} shows an example: a Minitaur robot learned to gallop in simulation and executed the gait in reality. While not a plot, this juxtaposition of sim vs real performance (from Tan et al.) illustrates that well-randomized training can produce controllers that behave similarly in both domains.
+A common strategy is \emph{dynamics randomization}: sampling simulation parameters (mass, inertia, friction coefficients, gravity, etc.) from a broad distribution during training. This approach generates a policy robust to a variety of dynamics. It was famously used by OpenAI in their bipedal robot and Dactyl hand experiments, randomizing parameters like joint friction, motor strength, and even gravity to ensure the policy did not rely on any precise setting\cite{Akkaya2019}. Tan et al. similarly randomized terrain friction and actuator gains for quadruped locomotion, leading to successful transfer\cite{Tan2018}. Table~\ref{tab:transition_methods} provides a comparison of the main transition-level transfer approaches discussed in this section. Figure~\ref{fig:quadruped} shows an example: a Minitaur robot learned to gallop in simulation and executed the gait in reality.
+
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/figMinitaurGallop.png}
-    \caption{Quadruped locomotion learned in simulation and deployed on hardware.  (Top) Simulated Minitaur robot in galloping gait (four frames at different times). (Bottom) The real Minitaur performing a learned gallop. (\emph{Source:} Tan et al.~\cite{Tan2018}.)}
+    \caption{Quadruped locomotion learned in simulation and deployed on hardware.  (Top) Simulated Minitaur robot (four frames at different times). (Bottom) The real Minitaur. (\emph{Source:} Tan et al.~\cite{Tan2018}.)}
     \label{fig:quadruped}
 \end{figure}
 
@@ -21,23 +22,28 @@ More recently, \emph{task-driven adaptation} frameworks aim to optimize simulati
     \label{fig:adapt_sim}
 \end{figure}
 
-In summary, transition-level transfer methods range from broad dynamics randomization to data-driven calibration. Task-driven approaches like AdaptSim aim to optimize simulation directly for real-world task performance. Across studies, hybrid pipelines—starting with randomization and refining via adaptation—consistently outperform isolated strategies~\cite{Chebotar2019,Ren2023}.
+In summary, transition-level transfer methods range from broad dynamics randomization to data-driven calibration. Task-driven approaches like AdaptSim aim to optimize simulation directly for real-world task performance. As summarized in Table~\ref{tab:transition_methods}, these methods differ significantly in their requirements for real-world data, adaptability characteristics, and simulation fidelity. Across studies, hybrid pipelines—starting with randomization and refining via adaptation—consistently outperform isolated strategies~\cite{Chebotar2019,Ren2023}.
+
 
 \begin{table*}[t]
 \centering
 \caption{Comparison of Transition-Level Transfer Methods}
 \label{tab:transition_methods}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{|l|c|c|c|c|}
-\hline
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{lcccc}
+\toprule
 \textbf{Method} & \textbf{Real-World Data} & \textbf{Adaptability} & \textbf{Simulation Fidelity} & \textbf{Examples} \\
-\hline
+\midrule
 Domain Randomization & \ding{55} & Broad & Moderate & Dactyl~\cite{Akkaya2019}, Tan et al.~\cite{Tan2018} \\
 System Identification & \ding{51} & Precise & High & SimOpt~\cite{Chebotar2019} \\
-AdaptSim & \ding{51} / * & Task-Driven & High & Ren et al.~\cite{Ren2023} \\
-\hline
+AdaptSim & \ding{51} / $\ast$ & Task-Driven & High & Ren et al.~\cite{Ren2023} \\
+\bottomrule
 \end{tabular}
 }
+\vspace{0.2em}
+\small\textit{
+Legend: \ding{51} = requires real-world data; \ding{55} = does not require real-world data; $\ast$ = can adapt with limited real-world trials.}
 \end{table*}
 
-\paragraph{Evaluation.} Dynamics randomization has proven effective in locomotion and manipulation tasks (e.g., OpenAI Dactyl~\cite{Akkaya2019}, Minitaur robot~\cite{Tan2018}). However, it assumes that the true real-world parameters are covered by the randomized distribution, which is not always guaranteed. System identification methods such as SimOpt~\cite{Chebotar2019} provide more accurate sim-real alignment by directly minimizing discrepancy through real-world trials. While this improves transfer performance, it requires repeated access to hardware and assumes stable and measurable dynamics.
+\paragraph{Evaluation.} Dynamics randomization has proven effective in locomotion and manipulation tasks (e.g., OpenAI Dactyl~\cite{Akkaya2019}, Minitaur robot~\cite{Tan2018}). Tan et al.'s randomized gait training enabled Minitaur to match or exceed expert-tuned performance (e.g. 1.18 m/s vs. 1.12 m/s) with up to 35 \% less energy \cite{Tan2018} However, it assumes that the true real-world parameters are covered by the randomized distribution, which is not always guaranteed. System identification methods such as SimOpt~\cite{Chebotar2019} provide more accurate sim-real alignment by directly minimizing discrepancy through real-world trials. While this improves transfer performance, it requires repeated access to hardware and assumes stable and measurable dynamics. Task-driven methods such as AdaptSim achieved up to 60\% success rates in real-world scooping tasks where other calibrated models failed, and required fewer real-world iterations to converge \cite{Ren2023}.
