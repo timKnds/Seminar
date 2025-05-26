@@ -21,6 +21,23 @@ More recently, \emph{task-driven adaptation} frameworks aim to optimize simulati
     \label{fig:adapt_sim}
 \end{figure}
 
-In summary, transition-level transfer methods range from broad dynamics randomization to data-driven calibration. Randomization is simple and scalable but may fail in unmodeled regions. SysID improves accuracy but depends on stable measurements and repeated hardware access. Task-driven methods like AdaptSim optimize directly for task outcomes, offering an efficient balance. Across studies, hybrid pipelines—randomization followed by adaptation—consistently outperform isolated strategies\cite{Chebotar2019,Ren2023}.
+In summary, transition-level transfer methods range from broad dynamics randomization to data-driven calibration. Task-driven approaches like AdaptSim aim to optimize simulation directly for real-world task performance. Across studies, hybrid pipelines—starting with randomization and refining via adaptation—consistently outperform isolated strategies~\cite{Chebotar2019,Ren2023}.
+
+\begin{table*}[t]
+\centering
+\caption{Comparison of Transition-Level Transfer Methods}
+\label{tab:transition_methods}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Method} & \textbf{Real-World Data} & \textbf{Adaptability} & \textbf{Simulation Fidelity} & \textbf{Examples} \\
+\hline
+Domain Randomization & \ding{55} & Broad & Moderate & Dactyl~\cite{Akkaya2019}, Tan et al.~\cite{Tan2018} \\
+System Identification & \ding{51} & Precise & High & SimOpt~\cite{Chebotar2019} \\
+AdaptSim & \ding{51} / * & Task-Driven & High & Ren et al.~\cite{Ren2023} \\
+\hline
+\end{tabular}
+}
+\end{table*}
 
 \paragraph{Evaluation.} Dynamics randomization has proven effective in locomotion and manipulation tasks (e.g., OpenAI Dactyl~\cite{Akkaya2019}, Minitaur robot~\cite{Tan2018}). However, it assumes that the true real-world parameters are covered by the randomized distribution, which is not always guaranteed. System identification methods such as SimOpt~\cite{Chebotar2019} provide more accurate sim-real alignment by directly minimizing discrepancy through real-world trials. While this improves transfer performance, it requires repeated access to hardware and assumes stable and measurable dynamics.
