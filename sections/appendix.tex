@@ -1,0 +1,43 @@
+\clearpage
+\appendix
+\section{A Method Benchmark Comparison}
+\label{app:benchmark}
+
+\begin{table}[!ht]
+\centering
+\resizebox{\textwidth}{!}{
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{p{4.5cm}p{2.5cm}p{2.5cm}p{2.2cm}p{2.2cm}p{4.2cm}}
+\toprule
+\textbf{Method} & \textbf{OATR-Target} & \textbf{Real-World Data} & \textbf{Adaptability} & \textbf{Generalization} & \textbf{Real-World Examples} \\
+\midrule
+Domain Randomization & Observation, Action, Transition & \ding{55} None & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{72}\ding{72} & Dactyl~\cite{Akkaya2019}, CAD2RL~\cite{Sadeghi2017} \\
+\midrule
+Domain Adaptation & Observation & \ding{51} Unlabeled & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & Tzeng et al.~\cite{Tzeng2017} \\
+\midrule
+Sensor Noise Modeling & Observation & \ding{55} None & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{72}\ding{72} & Tan et al.~\cite{Tan2018} \\
+\midrule
+Actuator Randomization & Action & \ding{55} None & \ding{72}\ding{72}\ding{73}\ding{73}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & OpenAI Dactyl~\cite{Akkaya2019}, Tan et al.~\cite{Tan2018} \\
+\midrule
+Grounded Action Transformation & Action & \ding{51} Moderate & \ding{72}\ding{72}\ding{73}\ding{73}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{73}\ding{73} & Hanna et al.~\cite{Hanna2017} \\
+\midrule
+System Identification & Transition & \ding{51} High & \ding{72}\ding{72}\ding{73}\ding{73}\ding{73} & \ding{72}\ding{72}\ding{73}\ding{73}\ding{73} & SimOpt~\cite{Chebotar2019} \\
+\midrule
+Task Driven Adaptation (AdaptSim) & Transition & \ding{51} Iterative & \ding{72}\ding{72}\ding{72}\ding{72}\ding{72} & \ding{72}\ding{72}\ding{72}\ding{73}\ding{73} & Ren et al.~\cite{Ren2023} \\ 
+\midrule
+Inverse RL & Reward & \ding{51} High & \ding{72}\ding{72}\ding{72}\ding{73}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{73}\ding{73} & AIRL~\cite{Fu2018} \\
+\midrule
+Preference-Based RL & Reward & \ding{51} High & \ding{72}\ding{72}\ding{72}\ding{73}\ding{73} & \ding{72}\ding{72}\ding{73}\ding{73}\ding{73} & PEBBLE~\cite{Lee2021}, Christiano et al.~\cite{Christiano2017} \\
+\midrule
+Self-Supervised RL & Reward & \ding{55} Medium & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & \ding{72}\ding{72}\ding{72}\ding{72}\ding{73} & Ze et al.~\cite{Ze2023} \\
+\bottomrule
+\end{tabular}
+}
+\vspace{0.2em}
+\noindent
+\begin{minipage}{\textwidth}
+    \centering\small\textit{
+    Legend: \ding{51} = requires real-world data; \ding{55} = does not require real-world data; $\ast$ = can adapt with limited real-world trials. \\
+    Adaptability and Generalization are rated on a scale from 1 (low) to 5 (high). \\}
+\end{minipage}
+\end{table}
