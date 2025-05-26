@@ -5,20 +5,19 @@ An RL task is an MDP characterized by observation (state) $s$, action $a$, trans
 \begin{table}[htbp]
     \centering
     \caption{Simulated vs real MDP components: sources of discrepancy (simulated vs real).}
-    \begin{tabular}{|p{0.3\linewidth}|p{0.6\linewidth}|}
-        \hline
+    \rowcolors{1}{gray!10}{white}
+    \begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+        \toprule
         \textbf{Observation:} & Idealized vs noisy vision/depth; synthetic vs real textures (rendering) \\
-        \hline
+        \midrule
         \textbf{Action:} & Precise, discrete commands vs actuator noise, latency, continuous control \\
-        \hline
+        \midrule
         \textbf{Transition:} & Deterministic physics vs stochastic dynamics, friction, contact variations \\
-        \hline
+        \midrule
         \textbf{Reward:} & Engineered or dense reward vs sparse/uncertain task objectives \\
-        \hline
+        \bottomrule
     \end{tabular}
     \label{tab:elements}
 \end{table}
 
 Each \simtoreal method typically addresses one or more of these elements. For instance, \emph{domain randomization} perturbs visuals and/or physics during training to cover a wide range of possible observations or transitions {\cite{Tobin2017,Sadeghi2017}}. In contrast, \emph{system identification} methods use real data to calibrate the simulator’s parameters {\cite{Chebotar2019}}. Some approaches combine both: e.g.\ OpenAI’s ADR gradually expands randomization range, effectively automating calibration while training {\cite{Akkaya2019}}. We now detail techniques by OATR component, starting with observations.
-
-% These four elements together determine the behaviour of an RL agent. The \simtoreal challenge can be viewed as discrepancy in one or more of these elements between the simulator MDP and the real-world MDP. Each technique can be used to mitigate one or more type of discrepancy.
