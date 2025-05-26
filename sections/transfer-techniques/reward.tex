@@ -14,18 +14,22 @@ Recent research increasingly leverages \textit{learned reward functions} to addr
 \caption{Comparison of Reward-Level Transfer Methods}
 \label{tab:reward_methods}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{|l|c|c|c|c|}
-\hline
+\rowcolors{2}{gray!10}{white}
+\begin{tabular}{lcccc}
+\toprule
 \textbf{Method} & \textbf{Real-World Feedback} & \textbf{Sample Efficiency} & \textbf{Generalization} & \textbf{Examples} \\
-\hline
+\midrule
 Inverse RL (IRL) & \ding{51} & Low & Moderate & AIRL~\cite{Fu2018} \\
-Preference-Based RL (PbRL) & * & High & High & Christiano et al.~\cite{Christiano2017} \\
+Preference-Based RL (PbRL) & $\ast$ & High & High & Christiano et al.~\cite{Christiano2017} \\
 Self-Supervised Rewards & \ding{55} & High & Task-Specific & Ze et al.~\cite{Ze2023} \\
-\hline
+\bottomrule
 \end{tabular}
 }
+\vspace{0.2em}
+\small\textit{
+Legend: \ding{51} = requires real-world feedback; \ding{55} = does not require real-world feedback; $\ast$ = can adapt with limited real-world feedback.}
 \end{table*}
 
-Compared to discrepancies in observations, actions, and transitions, reward-level gaps are more task-specific and harder to generalize. While fewer \simtoreal pipelines explicitly address reward transfer, its importance is growing as RL moves toward real-world deployment. Hybrid approaches that combine learned reward models, preference feedback, and limited real-world supervision are a promising direction.
+Compared to discrepancies in observations, actions, and transitions, reward-level gaps are more task-specific and harder to generalize. While fewer \simtoreal pipelines explicitly address reward transfer, its importance is growing as RL moves toward real-world deployment. Hybrid approaches that combine learned reward models, preference feedback, and limited real-world supervision are a promising direction. As shown in Table~\ref{tab:reward_methods}, these approaches differ significantly in their requirements for real-world feedback, sample efficiency, and generalization capabilities.
 
-\paragraph{Evaluation.} Reward design remains one of the most challenging aspects of sim-to-real transfer. Self-supervised and learned rewards help avoid reliance on inaccessible ground-truth signals but often lack interpretability. Inverse reinforcement learning (IRL) approaches, such as AIRL~\cite{Fu2018}, perform well when expert demonstrations are available but are difficult to scale and sensitive to trajectory quality.
+\paragraph{Evaluation.} Reward design remains one of the most challenging aspects of sim-to-real transfer. Self-supervised and learned rewards help avoid reliance on inaccessible ground-truth signals but often lack interpretability. Inverse reinforcement learning (IRL) approaches, such as AIRL~\cite{Fu2018}, perform well when expert demonstrations are available but are difficult to scale and sensitive to trajectory.
