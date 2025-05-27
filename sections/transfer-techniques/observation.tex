@@ -10,7 +10,7 @@ Overall, observation-level transfer is well-served by domain randomization and c
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/figAdrPipeline.png}
-    \caption{Training pipeline with Automatic Domain Randomization (ADR) for \simtoreal transfer. (A) Simulation generates randomized cube-and-hand images; (B) a policy (LSTM) maps simulated observations (hand and cube states) to actions; (C) a CNN state estimator is trained to predict cube pose from images; (D) during real-world deployment, camera images pass through the CNN, then policy acts on estimated state. (\emph{Adapted from} Akkaya et al.~\cite{Akkaya2019}.)}
+    \caption{Training pipeline with Automatic Domain Randomization (ADR) for \simtoreal transfer. (A) Simulation generates randomized cube-and-hand images; (B) a policy (LSTM) maps simulated observations (hand and cube states) to actions; (C) a CNN state estimator is trained to predict cube pose from images; (D) during real-world deployment, camera images pass through the CNN, then policy acts on estimated state. (Adapted from Akkaya et al.~\cite{Akkaya2019}.)}
     \label{fig:adr_pipeline}
 \end{figure}
 
