@@ -1,6 +1,6 @@
 \section{Background}
 \subsection{Definition}
-An RL task is an MDP characterized by observation (state) $s$, action $a$, transition $T(s,a\to s')$, and reward $r$. In simulation, these are often idealized: perfect sensors, discretized actions, deterministic physics, and easily computable rewards. In reality, by contrast, sensors produce noisy observations, actuators have latency and limits, dynamics are stochastic and hard to model, and rewards may be sparse or indirect. Table~\ref{tab:elements} summarizes typical sim-versus-real discrepancies. Any of these mismatches can cause failure: for example, a vision policy may overfit simulated textures and fail on real images, or an action sequence learned without actuator latency may be unsafe on hardware.
+An RL task is an MDP characterized by observation $s$, action $a$, transition $T(s,a\to s')$, and reward $r$. In simulation, these are often idealized: perfect sensors, discretized actions, deterministic physics, and easily computable rewards. In reality, by contrast, sensors produce noisy observations, actuators have latency and limits, dynamics are stochastic and hard to model, and rewards may be sparse or indirect. Table~\ref{tab:elements} summarizes typical sim-versus-real discrepancies. Any of these mismatches can cause failure: for example, a vision policy may overfit simulated textures and fail on real images, or an action sequence learned without actuator latency may be unsafe on hardware.
 
 \begin{table}[htbp]
     \centering
